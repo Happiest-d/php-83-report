@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PHP 8.3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="shower/themes/rndphp/styles/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+</head>
+<body class="shower list">
+<section class="slide preview">
+    <div class="lines"></div>
+    <div class="stripes"></div>
+    <h1>PHP 8.3</h1>
+<!--    <h2>Не прочитал патч ноут за год? Тогда слушай внимательно</h2>-->
+    <h2>Новые возможности и улучшения</h2>
+    <p>Кукуреко Денис</p>
+</section>
+
+<!--<section class="slide">-->
+<!--    <h2>О себе</h2>-->
+<!--    <h3>Кукуреко Денис</h3>-->
+<!--    <ul>-->
+<!--        <li>Backend разработчик в комании Веб<span style="color:#7927e0">/</span>Практик</li>-->
+<!--        <li>3+ года в backend</li>-->
+<!--        <li><b>PHP</b> : Bitrix, Laravel, Symfony, Yii2</li>-->
+<!--    </ul>-->
+<!--</section>-->
+
+<section class="slide">
+    <img src="pictures/trade.png" width="40%" class="place"/>
+</section>
+
+<section class="slide">
+    <h2>Что обсудим?</h2>
+    <ul>
+        <li>Производительность</li>
+        <li>Новые конструкции и фичи</li>
+        <li>Deprecated</li>
+        <li>Переход со старых версий</li>
+        <li>Выводы</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Что по производительности?</h2>
+    <img src="pictures/bench1-1.png" width="70%" class="place" style="padding-top: 50px"/>
+</section>
+
+<section class="slide">
+    <h2>Что по производительности?</h2>
+    <img src="pictures/bench1-2.png" width="70%" class="place" style="padding-top: 50px"/>
+</section>
+
+<section class="slide">
+    <h2>Что по производительности?</h2>
+    <img src="pictures/bench2-1.png" width="65%" class="place" style="padding-top: 50px"/>
+</section>
+
+<section class="slide">
+    <h2>Что по производительности?</h2>
+    <span>Bitrix -> Панель производительности -> Тестировать конфигурацию</span>
+    <img src="pictures/bench-bitrix-summary.png" width="90%" class="place" style="padding-top: 100px"/>
+</section>
+
+<section class="slide">
+    <h2>Что нового</h2>
+    <ul>
+        <li>Типизированные константы классов: <br><code>const array CODES</code></li>
+        <li>Динамическое получение констант класса: <br><code>Foo::{$constantName}</code></li>
+        <li>Новый атрибут #[\Override]</li>
+        <li>Глубокое клонирование readonly-свойств</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Что нового</h2>
+    <img src="pictures/clone-readonly.png" width="45%" class="place" style="padding-top: 50px"/>
+</section>
+
+<section class="slide">
+    <h2>Что нового</h2>
+    <ul>
+        <li>Новая функция: <br><code>json_validate()</code></li>
+        <li>Новые метод для Randomizer:
+            <br><code>Randomizer::getBytesFromString()</code>
+            <br><code>Randomizer::getFloat()</code>
+            <br><code>Randomizer::nextFloat()</code>
+        </li>
+        <li>Линтер командной строки поддерживает несколько файлов: <br><code>php -l foo.php bar.php</code></li>
+
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Что нового</h2>
+    <ul>
+        <li>Новые методы DOM, IntlCalendar. Ряд новых функций</li>
+        <li>Новый параметр INI zend.max_allowed_stack_size для установки максимально допустимого размера стека</li>
+        <li>php.ini теперь поддерживает синтаксис резервных значений/значений по умолчанию</li>
+        <li>Анонимные классы теперь доступны только для чтения</li>
+        <li>Минорные доработки, улучшения, оптимизации</li>
+    </ul>
+</section>
+
+<!--<section class="slide">-->
+<!--    <h2>Deprecated</h2>-->
+<!--</section>-->
+
+<section class="slide">
+    <h2>Переход со старых версий</h2>
+    <img src="pictures/php-update.png" width="45%" class="place" style="padding-top: 100px"/>
+</section>
+
+<section class="slide">
+    <h2>Переход со старых версий</h2>
+    <img src="pictures/php-update-56.png" width="45%" class="place" style="padding-top: 100px"/>
+</section>
+
+<section class="slide">
+    <h2>Переход со старых версий</h2>
+    <img src="pictures/rector.png" width="30%" class="place" style="padding-top: 100px; padding-right:500px"/>
+    <img src="pictures/phpcs.png" width="30%" class="place" style="padding-top: 100px; padding-left:500px"/>
+</section>
+
+<section class="slide">
+    <h2>Выводы</h2>
+    <img src="pictures/tink-sad.png" width="225px" class="place" style="padding-top: 100px; padding-right:600px"/>
+    <img src="pictures/logo-php.png" width="25%" class="place" style="padding-top: 100px"/>
+    <img src="pictures/tink-cool.png" width="225px" class="place" style="padding-top: 100px; padding-left:600px"/>
+</section>
+
+<section class="slide">
+    <h2 class="shout shrink">Вопросы?! 🤨</h2>
+</section>
+
+<section class="slide clear">
+    <pre style="line-height: 1; font-size: 19px; font-weight: bold; color: #2e3191; font-family: monospace;"
+         class="place">
+ ______  __                                        __
+/\__  _\/\ \                                      /\ \
+\/_/\ \/\ \ \___       __          __     ___     \_\ \
+   \ \ \ \ \  _ `\   /'__`\      /'__`\ /' _ `\   /'_` \
+    \ \ \ \ \ \ \ \ /\  __/     /\  __/ /\ \/\ \ /\ \L\ \
+     \ \_\ \ \_\ \_\\ \____\    \ \____\\ \_\ \_\\ \___,_\
+      \/_/  \/_/\/_/ \/____/     \/____/ \/_/\/_/ \/__,_ /
+
+    </pre>
+</section>
+
+<section class="slide clear">
+    <img src="pictures/listen-kringe.png" width="75%" class="place"/>
+</section>
+
+<section class="slide clear">
+    <img src="pictures/pizza2.png" width="75%" class="place"/>
+</section>
+
+<div class="progress"></div>
+
+<script src="shower/shower.min.js"></script>
+</body>
+</html>
