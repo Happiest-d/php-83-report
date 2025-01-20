@@ -84,3 +84,38 @@
 .slide.clear::before {
     display: none;
 }
+
+.language-php.hljs {
+    padding: 10px; /* Добавляет padding к элементу с обоими классами */
+    margin: -70px 0 0 0;
+    /*width: 50%;*/
+}
+
+.halfscreen {
+    display: flex;          /* Используем flexbox для разделения */
+}
+
+.left {
+    flex: 1;                /* Левая половина занимает 50% */
+    background-color: #f0f0f0; /* Светлый фон для левой части */
+    display: flex;
+    justify-content: left; /* Центрируем содержимое по горизонтали */
+    align-items: center;    /* Центрируем содержимое по вертикали */
+}
+
+
+.left.language-php.hljs {
+    width: 100%;
+}
+
+.right {
+    flex: 1;                /* Правая половина занимает 50% */
+    background-color: #e0e0e0; /* Более темный фон для правой части */
+    display: flex;
+    justify-content: left; /* Центрируем содержимое по горизонтали */
+    align-items: center;    /* Центрируем содержимое по вертикали */
+}
+
+.right.language-php.hljs {
+    width: 100%;
+}
