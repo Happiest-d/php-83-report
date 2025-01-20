@@ -15,7 +15,7 @@
     <div class="lines"></div>
     <div class="stripes"></div>
     <h1>PHP 8.3<br>Новые возможности и улучшения</h1>
-<!--    <h2>Не прочитал патч ноут за год? Тогда слушай внимательно</h2>-->
+    <!--    <h2>Не прочитал патч ноут за год? Тогда слушай внимательно</h2>-->
     <p>Кукуреко Денис</p>
 </section>
 
@@ -35,32 +35,261 @@
 </section>
 
 <section class="slide">
-    <h2>Что нового</h2>
-    <ul>
-        <li>Типизированные константы классов: <br><code>const array CODES</code></li>
-        <li>Динамическое получение констант класса: <br><code>Foo::{$constantName}</code></li>
-        <li>Новый атрибут #[\Override]</li>
-        <li>Глубокое клонирование readonly-свойств</li>
-    </ul>
+    <h2>Типизированные константы классов</h2>
+        <pre>
+            <code class="language-php">
+class BookShelf
+{
+    public const array CODES = [
+        'best',
+        'codes',
+    ];
+}
+            </code>
+        </pre>
+</section>
+
+
+<!--<section class="slide">-->
+<!--    <h2>Типизированные константы классов</h2>-->
+<!--    <div class="halfscreen">-->
+<!--        <div class="left">-->
+<!--            <pre>-->
+<!--                <code class="language-php">-->
+<!--class BookShelf-->
+<!--{-->
+<!--    public const array CODES = [-->
+<!--        'best',-->
+<!--        'codes',-->
+<!--    ];-->
+<!--}-->
+<!--                </code>-->
+<!--            </pre>-->
+<!--        </div>-->
+<!--        <div class="right">-->
+<!--            <pre>-->
+<!--                <code class="language-php">-->
+<!--class BookShelf-->
+<!--{-->
+<!--    public const array CODES = [-->
+<!--        'best',-->
+<!--        'codes',-->
+<!--    ];-->
+<!--}-->
+<!--                </code>-->
+<!--            </pre>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</section>-->
+
+<section class="slide">
+    <h2>Динамическое получение констант класса</h2>
+    <pre>
+        <code class="language-php">
+class Foo {
+    const PHP = 'PHP 8.3';
+}
+
+$searchableConstant = 'PHP';
+
+//PHP 8.2
+var_dump(constant(Foo::class . "::{$searchableConstant}"));
+
+//PHP 8.3
+var_dump(Foo::{$searchableConstant});
+        </code>
+    </pre>
 </section>
 
 <section class="slide">
-    <h2>Что нового</h2>
-    <img src="pictures/clone-readonly.png" width="45%" class="place" style="padding-top: 50px"/>
+    <h2>Новый атрибут #[\Override]</h2>
+    <pre>
+        <code class="language-php">
+class BaseDataProvider {
+
+    protected function setupConnection(): {
+        //настройки подключения
+    }
+}
+        </code>
+    </pre>
 </section>
 
 <section class="slide">
-    <h2>Что нового</h2>
-    <ul>
-        <li>Новая функция: <br><code>json_validate()</code></li>
-        <li>Новые метод для Randomizer:
-            <br><code>Randomizer::getBytesFromString()</code>
-            <br><code>Randomizer::getFloat()</code>
-            <br><code>Randomizer::nextFloat()</code>
-        </li>
-        <li>Линтер командной строки поддерживает несколько файлов: <br><code>php -l foo.php bar.php</code></li>
+    <h2>Новый атрибут #[\Override]</h2>
+    <pre>
+        <code class="language-php">
+class RedisProvider extends BaseDataProvider {
 
-    </ul>
+    #[\Override]
+    protected function setupConection(): {
+        //настройки подключения
+    }
+}
+
+// Fatal error: RedisProvider::setupConection() has #[\Override] attribute,
+// but no matching parent method exists
+        </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h2>Глубокое клонирование readonly-свойств</h2>
+    <pre>
+        <code class="language-php" style="font-size: 10px">
+class PHP {
+    public string $version = '8.2';
+}
+
+readonly class Foo {
+    public function __construct(
+        public PHP $php
+    ) {}
+
+    public function __clone(): void {
+        $this->php = clone $this->php;
+    }
+}
+
+$instance = new Foo(new PHP());
+$cloned = clone $instance;
+
+// Fatal error: Cannot modify readonly property Foo::$php
+        </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h2>Глубокое клонирование readonly-свойств</h2>
+    <pre>
+        <code class="language-php" style="font-size: 10px">
+class PHP {
+    public string $version = '8.2';
+}
+
+readonly class Foo {
+    public function __construct(
+        public PHP $php
+    ) {}
+
+    public function __clone(): void {
+        $this->php = clone $this->php;
+    }
+}
+
+$instance = new Foo(new PHP());
+$cloned = clone $instance;
+
+$cloned->php->version = '8.3';
+        </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h2>Новая функция json_validate()</h2>
+    <pre>
+        <code class="language-php">
+// PHP < 8.3
+
+function json_validate(string $string): bool {
+    json_decode($string);
+
+    return json_last_error() === JSON_ERROR_NONE;
+}
+
+var_dump(json_validate('{ "test": { "foo": "bar" } }'));
+
+//Result: true
+        </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h2>Новая функция json_validate()</h2>
+    <pre>
+        <code class="language-php">
+// PHP >= 8.3
+
+var_dump(json_validate('{ "test": { "foo": "bar" } }'));
+
+//Result: true
+        </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h2>Новые метод для Randomizer</h2>
+    <pre>
+        <code class="language-php">
+$randomizer = new \Random\Randomizer();
+
+printf(
+    "%s.example.com",
+    $randomizer->getBytesFromString('abcdefghijklmnopqrstuvwxyz0123456789', 16)
+);
+
+//Result: 3zsw04eiubcf82jd.example.com
+        </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h2>Новые метод для Randomizer</h2>
+    <pre>
+        <code class="language-php">
+$randomizer = new \Random\Randomizer();
+
+printf(
+    "Широта: %+.6f Долгота: %+.6f",
+    $randomizer->getFloat(-90, 90, \Random\IntervalBoundary::ClosedClosed),
+    $randomizer->getFloat(-180, 180, \Random\IntervalBoundary::OpenClosed),
+);
+
+//Result: Широта: +32.741952 Долгота: +26.319925
+        </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h2>Random\IntervalBoundary</h2>
+    <pre>
+        <code class="language-php">
+enum Random\IntervalBoundary
+{
+    case ClosedOpen ;
+    /** A left-open interval.The lower boundary is included, the upper boundary is not. */
+    case ClosedClosed ;
+    /** A closed interval. Both boundary values are included in the interval. */
+    case OpenClosed ;
+    /** A right-open interval. The upper boundary is included , the lower boundary is not. */
+    case OpenOpen ;
+    /** An open interval. Neither boundary value is included in the interval. */
+}
+        </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h2>Randomizer::nextFloat()</h2>
+    <pre>
+        <code class="language-php">
+$r = new \Random\Randomizer();
+
+// Результирующее логическое значение будет истинным с равной вероятностью.
+$chance = 0.5;
+
+$bool = $r->nextFloat() < $chance;
+
+echo ($bool ? "Вы выиграли" : "Вы проиграли"), "\n";
+
+//Result: Вы выиграли
+        </code>
+    </pre>
+</section>
+
+<section class="slide">
+    <h2>Доработан линтер</h2>
+    <li>Линтер командной строки поддерживает несколько файлов: <br><code>php -l foo.php bar.php</code></li>
 </section>
 
 <section class="slide">
@@ -95,25 +324,25 @@
 </section>
 
 <section class="slide">
-    <h2>Что по производительности?</h2>
+    <h2>Отличия в производительности (RPS)</h2>
     <img src="pictures/bench1-1.png" width="70%" class="place" style="padding-top: 50px"/>
 </section>
 
 <section class="slide">
-    <h2>Что по производительности?</h2>
+    <h2>Отличия в производительности (RPS)</h2>
     <img src="pictures/bench1-2.png" width="70%" class="place" style="padding-top: 50px"/>
 </section>
 
-<section class="slide">
-    <h2>Что по производительности?</h2>
-    <img src="pictures/bench2-1.png" width="65%" class="place" style="padding-top: 50px"/>
-</section>
+<!--<section class="slide">-->
+<!--    <h2>Что по производительности?</h2>-->
+<!--    <img src="pictures/bench2-1.png" width="65%" class="place" style="padding-top: 50px"/>-->
+<!--</section>-->
 
-<section class="slide">
-    <h2>Что по производительности?</h2>
-    <span>Bitrix -> Панель производительности -> Тестировать конфигурацию</span>
-    <img src="pictures/bench-bitrix-summary.png" width="90%" class="place" style="padding-top: 100px"/>
-</section>
+<!--<section class="slide">-->
+<!--    <h2>Что по производительности?</h2>-->
+<!--    <span>Bitrix -> Панель производительности -> Тестировать конфигурацию</span>-->
+<!--    <img src="pictures/bench-bitrix-summary.png" width="90%" class="place" style="padding-top: 100px"/>-->
+<!--</section>-->
 
 <section class="slide">
     <h2>Выводы</h2>
