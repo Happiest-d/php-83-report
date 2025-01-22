@@ -27,7 +27,6 @@
     <h2>Что обсудим?</h2>
     <ul>
         <li>Новые конструкции и фичи</li>
-        <li>Deprecated</li>
         <li>Переход с предидущих версий</li>
         <li>Производительность</li>
         <li>Выводы</li>
@@ -296,60 +295,79 @@ echo ($bool ? "Вы выиграли" : "Вы проиграли"), "\n";
 
 <section class="slide">
     <h2>Новые методы DOM</h2>
-    <ul>
-        <li>DOMElement::getAttributeNames()</li>
-        <li>DOMElement::insertAdjacentElement()</li>
-        <li>DOMElement::insertAdjacentText()</li>
-        <li>DOMElement::toggleAttribute()</li>
-        <li>DOMNode::contains()</li>
-        <li>DOMNode::getRootNode()</li>
-    </ul>
-</section>
+    <pre>
+        <code class="language-php">
 
-<section class="slide">
-    <h2>Новые методы DOM</h2>
-    <ul>
-        <li>DOMNode::isEqualNode()</li>
-        <li>DOMNameSpaceNode::contains()</li>
-        <li>DOMParentNode::replaceChildren()</li>
-    </ul>
+DOMElement::getAttributeNames();
+DOMElement::insertAdjacentElement(); // Добавляет соседний или дочерний элемент
+DOMElement::insertAdjacentText(); // Добавляет соседний или дочерний текст
+DOMElement::toggleAttribute(); // Переключает атрибут
+DOMNode::contains(); // Проверяет, содержит ли узел другой узел
+DOMNode::getRootNode();
+DOMNode::isEqualNode();
+DOMParentNode::replaceChildren(); // Заменяет потомков в узле
+        </code>
+    </pre>
 </section>
 
 <section class="slide">
     <h2>Новые методы для интернационального календаря</h2>
-    <ul>
-        <li>IntlCalendar::setDate()</li>
-        <li>IntlCalendar::setDateTime()</li>
-        <li>IntlGregorianCalendar::createFromDate()</li>
-        <li>IntlGregorianCalendar::createFromDateTime()</li>
-    </ul>
+    <pre>
+        <code class="language-php">
+
+IntlCalendar::setDate(); // Устанавливает поля даты (YMD)
+IntlCalendar::setDateTime(); // Устанавливает поля даты и времени (YMD HIS)
+IntlGregorianCalendar::createFromDate(); // Аналогично для григорианского календаря
+IntlGregorianCalendar::createFromDateTime(); // Аналогично для григорианского календаря
+        </code>
+    </pre>
 </section>
 
 <section class="slide">
     <h2>Новые функции</h2>
-    <ul>
-        <li>ldap_connect_wallet()</li>
-        <li>ldap_exop_sync()</li>
-        <li>mb_str_pad() //Дополняет мультибайтовую строку другой мультибайтовой строкой до заданной длины</li>
-        <li>posix_sysconf()</li>
-        <li>posix_pathconf()</li>
-        <li>posix_fpathconf()</li>
-        <li>posix_eaccess()</li>
-    </ul>
+    <pre>
+        <code class="language-php">
+
+ldap_connect_wallet();
+ldap_exop_sync();
+mb_str_pad(); // Дополняет мультибайтовую строку другой мультибайтовой строкой до заданной длины
+posix_sysconf(); // Возвращает информацию о системе во время выполнения
+posix_pathconf(); // Возвращает значение настраиваемого ограничения
+posix_fpathconf(); // Возвращает значение настраиваемого ограничения для файлового дескриптора
+posix_eaccess(); // Проверяет доступность файла
+        </code>
+    </pre>
 </section>
 
 <section class="slide">
-    <h2>Улучшения и доработки PHP INI</h2>
+    <h2>PHP INI</h2>
     <ul>
-        <li>Новый параметр INI zend.max_allowed_stack_size для установки максимально допустимого размера стека</li>
+        <li>Новый параметр INI <code>zend.max_allowed_stack_size</code> для установки максимально допустимого размера стека</li>
         <li>php.ini теперь поддерживает синтаксис резервных значений/значений по умолчанию</li>
-        <li>Параметры INI assert.active, assert.bail, assert.callback, assert.exception и assert.warning объявлены устаревшими</li>
+        <li>Параметры INI <code>assert.active</code>, <code>assert.bail</code>, <code>assert.exception</code>, <code>assert.warning</code> объявлены устаревшими</li>
     </ul>
 </section>
 
 <section class="slide">
-    <h2>Улучшения и доработки PHP INI</h2>
-    <img src="pictures/php-ini-default-values.png" width="100%" class="place"/>
+    <h2>PHP INI</h2>
+    <div style="font-size: 16px">
+        <p>В PHP 8.3 поддержка подстановки переменных окружения INI расширена за счёт поддержки объявления запасного значения.</p>
+        <p>В PHP 8.3 и более поздних версиях появилась возможность опционально объявлять запасное (fallback) значение с помощью символа :-, за которым следует запасное значение. Те же значения INI, которые были объявлены в приведённом выше фрагменте, теперь могут быть заданы с помощью запасных значений:</p>
+    </div>
+    <img src="pictures/php-ini-example.png" width="80%" class="place" style="padding-top: 200px"/>
+</section>
+
+<section class="slide">
+    <h2>Deprecated</h2>
+    <div style="font-size: 24px">
+        <ul>
+            <li>Изменения в функции <code>range()</code> (!)</li>
+            <li><code>ReflectionClass::getStaticProperties()</code> теперь не возвращает значение null (!)</li>
+            <li>Вызов функции <code>get_class()</code> и <code>get_parent_class()</code> без аргументов (!)</li>
+            <li><code>U_MULTIPLE_DECIMAL_SEPERATORS</code> --> <code>U_MULTIPLE_DECIMAL_SEPARATORS</code></li>
+            <li><code>MT_RAND_PHP</code></li>
+        </ul>
+    </div>
 </section>
 
 <!--<section class="slide">-->
@@ -373,8 +391,7 @@ echo ($bool ? "Вы выиграли" : "Вы проиграли"), "\n";
 </section>
 
 <section class="slide">
-    <h2>Производительность</h2>
-    <p>Условия бенчмарков</p>
+    <h2>Производительность. Условия бенчмарков</h2>
     <ul>
         <li>Intel Cascade Lake (30 core CPU) @ 3.10GHz, 120GB RAM, 1TB HDD. Виртуальная машина на Google Cloud Platform, запущенная как изолированный контейнер</li>
         <li>OS: Ubuntu 20.04.6 LTS (Focal Fossa)</li>
@@ -383,8 +400,7 @@ echo ($bool ? "Вы выиграли" : "Вы проиграли"), "\n";
 </section>
 
 <section class="slide">
-    <h2>Производительность</h2>
-    <p>Условия бенчмарков</p>
+    <h2>Производительность. Условия бенчмарков</h2>
     <ul>
         <li>Версии PHP: 7.4.33, 8.1.26, 8.2.13, 8.3.0</li>
         <li>База данных: ddev-dbserver-mariadb-10.4</li>
@@ -428,20 +444,6 @@ echo ($bool ? "Вы выиграли" : "Вы проиграли"), "\n";
 
 <section class="slide">
     <h2 class="shout shrink">Вопросы?! 🤨</h2>
-</section>
-
-<section class="slide clear">
-    <pre style="line-height: 1; font-size: 19px; font-weight: bold; color: #2e3191; font-family: monospace;"
-         class="place">
- ______  __                                        __
-/\__  _\/\ \                                      /\ \
-\/_/\ \/\ \ \___       __          __     ___     \_\ \
-   \ \ \ \ \  _ `\   /'__`\      /'__`\ /' _ `\   /'_` \
-    \ \ \ \ \ \ \ \ /\  __/     /\  __/ /\ \/\ \ /\ \L\ \
-     \ \_\ \ \_\ \_\\ \____\    \ \____\\ \_\ \_\\ \___,_\
-      \/_/  \/_/\/_/ \/____/     \/____/ \/_/\/_/ \/__,_ /
-
-    </pre>
 </section>
 
 <section class="slide clear">
