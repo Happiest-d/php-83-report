@@ -278,6 +278,7 @@ $r = new \Random\Randomizer();
 // Результирующее логическое значение будет истинным с равной вероятностью.
 $chance = 0.5;
 
+// Значение 0.0 — возможное возвращаемое значение, значение 1.0 — нет.
 $bool = $r->nextFloat() < $chance;
 
 echo ($bool ? "Вы выиграли" : "Вы проиграли"), "\n";
@@ -289,18 +290,66 @@ echo ($bool ? "Вы выиграли" : "Вы проиграли"), "\n";
 
 <section class="slide">
     <h2>Доработан линтер</h2>
-    <li>Линтер командной строки поддерживает несколько файлов: <br><code>php -l foo.php bar.php</code></li>
+    <p>Линтер командной строки поддерживает несколько файлов: <br><code>php -l foo.php bar.php</code></p>
+    <img src="pictures/linter-example.png" width="80%" class="place" style="padding-top: 100px"/>
 </section>
 
 <section class="slide">
-    <h2>Что нового</h2>
+    <h2>Новые методы DOM</h2>
     <ul>
-        <li>Новые методы DOM, IntlCalendar. Ряд новых функций</li>
+        <li>DOMElement::getAttributeNames()</li>
+        <li>DOMElement::insertAdjacentElement()</li>
+        <li>DOMElement::insertAdjacentText()</li>
+        <li>DOMElement::toggleAttribute()</li>
+        <li>DOMNode::contains()</li>
+        <li>DOMNode::getRootNode()</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Новые методы DOM</h2>
+    <ul>
+        <li>DOMNode::isEqualNode()</li>
+        <li>DOMNameSpaceNode::contains()</li>
+        <li>DOMParentNode::replaceChildren()</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Новые методы для интернационального календаря</h2>
+    <ul>
+        <li>IntlCalendar::setDate()</li>
+        <li>IntlCalendar::setDateTime()</li>
+        <li>IntlGregorianCalendar::createFromDate()</li>
+        <li>IntlGregorianCalendar::createFromDateTime()</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Новые функции</h2>
+    <ul>
+        <li>ldap_connect_wallet()</li>
+        <li>ldap_exop_sync()</li>
+        <li>mb_str_pad() //Дополняет мультибайтовую строку другой мультибайтовой строкой до заданной длины</li>
+        <li>posix_sysconf()</li>
+        <li>posix_pathconf()</li>
+        <li>posix_fpathconf()</li>
+        <li>posix_eaccess()</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Улучшения и доработки PHP INI</h2>
+    <ul>
         <li>Новый параметр INI zend.max_allowed_stack_size для установки максимально допустимого размера стека</li>
         <li>php.ini теперь поддерживает синтаксис резервных значений/значений по умолчанию</li>
-        <li>Анонимные классы теперь доступны только для чтения</li>
-        <li>Минорные доработки, улучшения, оптимизации</li>
+        <li>Параметры INI assert.active, assert.bail, assert.callback, assert.exception и assert.warning объявлены устаревшими</li>
     </ul>
+</section>
+
+<section class="slide">
+    <h2>Улучшения и доработки PHP INI</h2>
+    <img src="pictures/php-ini-default-values.png" width="100%" class="place"/>
 </section>
 
 <!--<section class="slide">-->
@@ -324,12 +373,38 @@ echo ($bool ? "Вы выиграли" : "Вы проиграли"), "\n";
 </section>
 
 <section class="slide">
-    <h2>Отличия в производительности (RPS)</h2>
+    <h2>Производительность</h2>
+    <p>Условия бенчмарков</p>
+    <ul>
+        <li>Intel Cascade Lake (30 core CPU) @ 3.10GHz, 120GB RAM, 1TB HDD. Виртуальная машина на Google Cloud Platform, запущенная как изолированный контейнер</li>
+        <li>OS: Ubuntu 20.04.6 LTS (Focal Fossa)</li>
+        <li>CMS и framework`и: Настройки по умолчанию, установленны на DDEV v1.22.5 amd64, nginx-fpm как --webserver-type на базе образа версии 1.22.0</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Производительность</h2>
+    <p>Условия бенчмарков</p>
+    <ul>
+        <li>Версии PHP: 7.4.33, 8.1.26, 8.2.13, 8.3.0</li>
+        <li>База данных: ddev-dbserver-mariadb-10.4</li>
+        <li>Для тестирования используется Apache HTTP server benchmarking tool:
+            <ul>
+                <li>Concurrency: 15 одновременных запросов</li>
+                <li>Requests: 1000 requests per session</li>
+            </ul>
+        </li>
+        <li>Результаты указаны в RPS</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Производительность (RPS)</h2>
     <img src="pictures/bench1-1.png" width="70%" class="place" style="padding-top: 50px"/>
 </section>
 
 <section class="slide">
-    <h2>Отличия в производительности (RPS)</h2>
+    <h2>Производительность (RPS)</h2>
     <img src="pictures/bench1-2.png" width="70%" class="place" style="padding-top: 50px"/>
 </section>
 
